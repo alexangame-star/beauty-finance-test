@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Фінансовий чек-лист салону · Вікторія Близнюк</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#080A1C;--navy2:#0D0B2A;--navy3:#14123A;--navy4:#1A1848;
+  --gold1:#FFD700;--gold2:#D4A820;--gold3:#B8860A;--gold4:#FFF0A0;
+  --white:#FFFFFF;--off:#E8E0C8;--muted:#8880A0;
+  --green:#4CAF50;--red:#EF5350;--orange:#FF9800;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden;}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 20% 20%,rgba(212,168,32,.04) 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 80%,rgba(26,24,72,.8) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+.wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px;position:relative;z-index:1;}
+
+/* HERO */
+.hero{text-align:center;padding:48px 24px 32px;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(212,168,32,.35);color:var(--gold2);font-size:10px;letter-spacing:3px;text-transform:uppercase;padding:6px 18px;margin-bottom:20px;}
+.hero h1{font-family:'Cinzel',serif;font-size:clamp(24px,5vw,40px);font-weight:900;background:linear-gradient(135deg,var(--gold4) 0%,var(--gold1) 40%,var(--gold2) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.15;margin-bottom:12px;}
+.hero-sub{font-size:14px;color:var(--off);line-height:1.7;max-width:520px;margin:0 auto 24px;}
+.gold-line{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);margin:0 auto 24px;}
+
+/* VIC BLOCK */
+.vic-block{
+  background:linear-gradient(135deg,rgba(20,18,58,.7),rgba(13,11,42,.8));
+  border:1px solid rgba(212,168,32,.15);border-left:3px solid var(--gold2);
+  border-radius:8px;padding:24px;margin-bottom:32px;
+  display:grid;grid-template-columns:140px 1fr;gap:24px;align-items:center;
+}
+@media(max-width:500px){.vic-block{grid-template-columns:1fr;}.vic-photo{margin:0 auto;}}
+.vic-photo{
+  width:130px;height:160px;border-radius:6px;
+  background:linear-gradient(135deg,rgba(212,168,32,.15),rgba(26,24,72,.8));
+  border:1px solid rgba(212,168,32,.3);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;flex-shrink:0;
+}
+.vic-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.vic-photo-placeholder{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;padding:16px;text-align:center;
+}
+.vic-photo-placeholder .initials{font-family:'Cinzel',serif;font-size:36px;font-weight:900;color:var(--gold2);}
+.vic-photo-placeholder .hint{font-size:9px;color:rgba(212,168,32,.4);letter-spacing:1px;text-transform:uppercase;line-height:1.5;}
+.vic-info h3{font-family:'Cinzel',serif;font-size:15px;color:var(--gold1);margin-bottom:4px;}
+.vic-info .role{font-size:11px;color:var(--gold3);margin-bottom:10px;letter-spacing:.5px;}
+.vic-info p{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:12px;}
+.vic-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.vic-stat{background:rgba(8,10,28,.5);border:1px solid rgba(212,168,32,.1);border-radius:4px;padding:8px 10px;text-align:center;}
+.vic-stat strong{font-family:'Cinzel',serif;font-size:16px;color:var(--gold1);display:block;}
+.vic-stat span{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+
+/* CARD */
+.card{background:linear-gradient(135deg,rgba(20,18,58,.8),rgba(13,11,42,.9));border:1px solid rgba(212,168,32,.12);border-radius:8px;padding:28px 24px;margin-bottom:16px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);opacity:.4;}
+.card-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold2);margin-bottom:6px;}
+.card-title{font-family:'Cinzel',serif;font-size:17px;font-weight:700;color:var(--white);margin-bottom:4px;}
+.card-sub{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.6;}
+
+/* FIELDS */
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:10px;color:var(--gold2);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
+.field input,.field select{width:100%;background:rgba(8,10,28,.8);border:1px solid rgba(212,168,32,.2);color:var(--white);padding:12px 16px;border-radius:4px;font-size:13px;font-family:'Montserrat',sans-serif;outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.field input:focus,.field select:focus{border-color:rgba(212,168,32,.6);}
+.field select option{background:#0D0B2A;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:500px){.field-row{grid-template-columns:1fr;}}
+
+/* QUESTIONS */
+.q-list{display:flex;flex-direction:column;gap:3px;}
+.q-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .2s;border-radius:4px;}
+.q-item:hover{background:rgba(255,255,255,.02);}
+.q-num{font-family:'Cinzel',serif;font-size:11px;color:var(--gold3);min-width:22px;flex-shrink:0;}
+.q-text{font-size:12px;color:var(--off);flex:1;line-height:1.5;}
+.q-toggle{display:flex;gap:5px;flex-shrink:0;}
+.q-btn{padding:5px 12px;border-radius:3px;font-size:10px;font-weight:700;letter-spacing:1px;cursor:pointer;border:1px solid;transition:.2s;font-family:'Montserrat',sans-serif;}
+.q-btn.yes{border-color:rgba(76,175,80,.3);color:rgba(76,175,80,.6);background:transparent;}
+.q-btn.yes.active{background:rgba(76,175,80,.15);color:var(--green);border-color:var(--green);}
+.q-btn.no{border-color:rgba(239,83,80,.3);color:rgba(239,83,80,.6);background:transparent;}
+.q-btn.no.active{background:rgba(239,83,80,.1);color:var(--red);border-color:var(--red);}
+
+/* PROGRESS */
+.progress-wrap{margin-bottom:20px;}
+.progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:6px;}
+.progress-track{height:4px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--gold3),var(--gold1));transition:width .4s ease;}
+
+/* BTN */
+.btn{width:100%;padding:15px;background:linear-gradient(135deg,var(--gold3),var(--gold1),var(--gold2));color:var(--navy);border:none;border-radius:4px;font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:.2s;text-transform:uppercase;}
+.btn:hover{transform:translateY(-2px);box-shadow:0 20px 50px rgba(212,168,32,.3);}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.btn-out{background:transparent;border:1px solid rgba(212,168,32,.4);color:var(--gold2);font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;padding:10px 24px;cursor:pointer;border-radius:4px;transition:.2s;margin-top:12px;}
+.btn-out:hover{border-color:var(--gold1);color:var(--gold1);}
+
+/* RESULT */
+.result-card{padding:8px 0;}
+.result-top{text-align:center;padding:24px;background:linear-gradient(135deg,rgba(20,18,58,.9),rgba(13,11,42,.9));border:1px solid rgba(212,168,32,.2);border-radius:8px;margin-bottom:16px;}
+.result-emoji{font-size:44px;margin-bottom:10px;}
+.result-level{font-family:'Cinzel',serif;font-size:20px;font-weight:700;margin-bottom:6px;}
+.result-desc{font-size:13px;color:var(--off);line-height:1.8;max-width:500px;margin:0 auto 20px;}
+
+.score-circle{width:100px;height:100px;border-radius:50%;border:2px solid;display:flex;align-items:center;justify-content:center;flex-direction:column;margin:0 auto 16px;background:rgba(8,10,28,.8);}
+.score-num{font-family:'Cinzel',serif;font-size:32px;font-weight:900;line-height:1;}
+.score-of{font-size:11px;color:var(--muted);}
+
+/* RESULT BARS */
+.result-bars{background:rgba(8,10,28,.5);border:1px solid rgba(212,168,32,.1);border-radius:6px;padding:16px;margin-bottom:12px;}
+.rb-title{font-size:10px;color:var(--gold2);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.rbar{margin-bottom:10px;}
+.rbar:last-child{margin-bottom:0;}
+.rbar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px;}
+.rbar-track{height:5px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden;}
+.rbar-fill{height:100%;border-radius:3px;transition:width .9s ease .3s;}
+.rbar-fill.g{background:linear-gradient(90deg,#2E7D32,var(--green));}
+.rbar-fill.o{background:linear-gradient(90deg,#E65100,var(--orange));}
+.rbar-fill.r{background:linear-gradient(90deg,#B71C1C,var(--red));}
+
+/* RECOMMENDATIONS */
+.rec-block{background:rgba(8,10,28,.5);border:1px solid rgba(212,168,32,.1);border-radius:6px;padding:20px;margin-bottom:12px;}
+.rec-title{font-size:10px;color:var(--gold2);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.rec-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.04);}
+.rec-item:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.rec-num{font-family:'Cinzel',serif;font-size:18px;color:var(--gold2);font-weight:700;flex-shrink:0;line-height:1.2;}
+.rec-text{font-size:12px;color:var(--off);line-height:1.6;}
+.rec-text strong{color:var(--gold1);}
+
+/* NO ITEMS */
+.no-block{background:rgba(239,83,80,.04);border:1px solid rgba(239,83,80,.12);border-radius:6px;padding:16px;margin-bottom:12px;}
+.no-title{font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.no-item{padding:8px 12px;margin-bottom:5px;background:rgba(239,83,80,.04);border-left:2px solid rgba(239,83,80,.4);border-radius:0 4px 4px 0;font-size:11px;color:var(--off);line-height:1.5;}
+
+/* CTA BOXES */
+.cta-audit{background:linear-gradient(135deg,rgba(26,24,72,.9),rgba(13,11,42,.9));border:1px solid rgba(212,168,32,.3);border-radius:8px;padding:24px;margin-bottom:12px;position:relative;overflow:hidden;}
+.cta-audit::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold3),var(--gold1),var(--gold3));}
+.cta-audit h4{font-family:'Cinzel',serif;font-size:16px;color:var(--gold1);margin-bottom:8px;}
+.cta-audit p{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;}
+.cta-warm{background:linear-gradient(135deg,rgba(13,11,42,.9),rgba(8,10,28,.9));border:1px solid rgba(212,168,32,.2);border-radius:8px;padding:24px;margin-bottom:12px;}
+.cta-warm h4{font-family:'Cinzel',serif;font-size:15px;color:var(--gold1);margin-bottom:8px;}
+.cta-warm p{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;}
+
+/* STEP */
+.step{display:none;}
+.step.active{display:block;animation:fadeUp .4s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,168,32,.2),transparent);margin:20px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">🔥 Безкоштовний інструмент</div>
+  <h1>Фінансовий чек-лист салону</h1>
+  <p class="hero-sub">15 питань — і ти побачиш де твій бізнес втрачає гроші прямо зараз</p>
+  <div class="gold-line"></div>
+</div>
+
+<!-- VIC BLOCK -->
+<div class="vic-block">
+  <!-- 📸 ЗОН ДЛЯ ФОТО: замінити src на реальне фото Вікторії -->
+  <div class="vic-photo">
+    <!-- ВСТАВИТИ ФОТО: <img src="vikoria-photo.jpg" alt="Вікторія Близнюк"> -->
+    <div class="vic-photo-placeholder">
+      <div class="initials">ВБ</div>
+      <div class="hint">Фото<br>Вікторії</div>
+    </div>
+  </div>
+  <div class="vic-info">
+    <h3>Вікторія Близнюк</h3>
+    <div class="role">Підприємиця · Ментор б'юті бізнесу</div>
+    <p>Пройшла шлях від манікюру за 50 грн вдома до мережі з 8 салонів. Навчила 1200+ власниць будувати системний прибутковий бізнес — навіть в умовах війни.</p>
+    <div class="vic-stats">
+      <div class="vic-stat"><strong>8</strong><span>салонів Cherry</span></div>
+      <div class="vic-stat"><strong>$1M+</strong><span>оборот/рік</span></div>
+      <div class="vic-stat"><strong>1200+</strong><span>учениць</span></div>
+      <div class="vic-stat"><strong>120+</strong><span>співробітників</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ STEP 1 ══════════ -->
+<div class="step active" id="step1">
+  <div class="card">
+    <div class="card-tag">Крок 1 з 3</div>
+    <div class="card-title">Розкажи про свій бізнес</div>
+    <div class="card-sub">Щоб результат і рекомендації були точними для твоєї ситуації</div>
+
+    <div class="field">
+      <label>Твоя роль</label>
+      <select id="role">
+        <option value="">— Оберіть —</option>
+        <option value="owner">Власниця (не працюю майстром)</option>
+        <option value="owner_master">Власниця і працюю майстром</option>
+        <option value="manager">Керуюча салоном</option>
+        <option value="admin">Адміністратор</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Місячний оборот салону</label>
+      <select id="revenue">
+        <option value="">— Оберіть —</option>
+        <option value="u50">До 50 000 грн</option>
+        <option value="50_150">50 000 – 150 000 грн</option>
+        <option value="150_300">150 000 – 300 000 грн</option>
+        <option value="300_500">300 000 – 500 000 грн</option>
+        <option value="500_1000">500 000 – 1 000 000 грн</option>
+        <option value="1m_plus">Від 1 000 000 грн+</option>
+      </select>
+    </div>
+
+    <button class="btn" onclick="goStep(2)">ПОЧАТИ ЧЕКЛІСТ →</button>
+  </div>
+</div>
+
+<!-- ══════════ STEP 2 ══════════ -->
+<div class="step" id="step2">
+  <div class="card">
+    <div class="card-tag">Крок 2 з 3 · Відповідай чесно</div>
+    <div class="card-title">15 питань про фінанси твого салону</div>
+    <div class="card-sub">Натисни "Так" або "Ні" для кожного пункту. Без правильних чи неправильних відповідей — тільки реальна ситуація.</div>
+
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Прогрес</span><span id="prog_label">0 / 15</span></div>
+      <div class="progress-track"><div class="progress-fill" id="prog_fill" style="width:0%"></div></div>
+    </div>
+
+    <div class="q-list" id="q_list"></div>
+
+    <div style="margin-top:20px;">
+      <button class="btn" id="btn2" onclick="goStep(3)" disabled>ДІЗНАТИСЬ РЕЗУЛЬТАТ →</button>
+      <div style="text-align:center;"><button class="btn-out" onclick="goStep(1)">← Назад</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ STEP 3 — GATE ══════════ -->
+<div class="step" id="step3">
+  <div class="card">
+    <div class="card-tag">Крок 3 з 3</div>
+    <div style="text-align:center;padding:8px 0 16px;">
+      <div style="font-size:40px;margin-bottom:10px;">🔒</div>
+      <div class="card-title" style="text-align:center;">Твій результат готовий</div>
+      <p style="font-size:13px;color:var(--muted);margin:8px 0 20px;line-height:1.7;">
+        Залиш контакти — ми покажемо результат і надішлемо персональні рекомендації.<br>
+        Вікторія особисто переглядає кожен результат.
+      </p>
+    </div>
+
+    <div class="field">
+      <label>Ім'я *</label>
+      <input type="text" id="f_name" placeholder="Як тебе звати?">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Телефон *</label>
+        <input type="tel" id="f_phone" placeholder="+380...">
+      </div>
+      <div class="field">
+        <label>Telegram</label>
+        <input type="text" id="f_tg" placeholder="@username">
+      </div>
+    </div>
+
+    <button class="btn" onclick="submitAndShow()">ПОКАЗАТИ МІЙ РЕЗУЛЬТАТ →</button>
+    <div style="text-align:center;margin-top:10px;font-size:10px;color:var(--muted);">Натискаючи кнопку, ти погоджуєшся з обробкою персональних даних</div>
+    <div style="text-align:center;"><button class="btn-out" onclick="goStep(2)">← Назад</button></div>
+  </div>
+</div>
+
+<!-- ══════════ STEP 4 — RESULT ══════════ -->
+<div class="step" id="step4">
+  <div class="result-card" id="result_block"></div>
+</div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  "У мене є окремі рахунки для бізнесу і особистих витрат",
+  "Я знаю, яка в мене точка беззбитковості",
+  "У мене є фінансова модель: скільки салон має заробляти в місяць",
+  "Я веду звітність: дохід / витрати / чистий прибуток щомісяця",
+  "Я аналізую, які послуги та майстри приносять більше прибутку",
+  "У моїх майстрів прописана система бонусів чи KPI",
+  "Адміністратор розуміє, як впливає на прибуток і що від нього очікується",
+  "Я не переплачую зарплату, а розподіляю прибутково для бізнесу",
+  "Є зрозумілі правила фінансової мотивації команди",
+  "Я розумію, скільки можу дозволити собі витрачати на ФОП, оренду, рекламу",
+  "Я точно знаю, скільки мій салон заробить наступного місяця (у межах ±10%)",
+  "Я можу чітко назвати свій чистий прибуток за останній місяць",
+  "Я знаю, скільки коштує один новий клієнт із реклами і скільки я з нього заробляю",
+  "Я впевнена, що зарплатна система для майстрів і адміністратора не шкодить прибутковості",
+  "Я розумію, як підвищити прибуток на 20–30% без розширення команди чи локації"
+];
+
+const WEBHOOK = 'https://script.google.com/macros/s/AKfycbzxynrtBggd_TF9nHS4yIqAHoJC78dQY-VkKaMzqBsWsF8W9GLgsMra_uM-F2MgL40fWQ/exec';
+
+// Recommendations by level
+const RECS = {
+  high: [
+    {n:'01', text:'<strong>Запусти фінансове прогнозування на 3 місяці вперед.</strong> У тебе є дані — використай їх для планування інвестицій і масштабування без ризику.'},
+    {n:'02', text:'<strong>Введи щотижневий фінансовий дашборд</strong> (15 хв на тиждень): дохід, витрати, відхилення від плану. Це переведе контроль з ручного в системний.'},
+    {n:'03', text:'<strong>Порахуй LTV кожного сегменту клієнтів.</strong> Знаючи скільки клієнт приносить за рік — ти зможеш обґрунтовано збільшити бюджет на залучення і повернення.'},
+  ],
+  mid: [
+    {n:'01', text:'<strong>Розділи рахунки бізнесу і особистий прямо сьогодні.</strong> Це базова умова для розуміння реального прибутку. Без цього всі інші дії — на піску.'},
+    {n:'02', text:'<strong>Зроби просту фінансову модель в Excel.</strong> Запиши: оборот, витрати на матеріали (норма 15–20%), зарплати (норма 35–40%), оренда, реклама — і порахуй що залишається. Це займе 1 годину і змінить все.'},
+    {n:'03', text:'<strong>Введи щомісячний звіт для себе:</strong> дохід / витрати / чистий прибуток. Навіть в Google Таблиці. Ті хто рахує — заробляють більше. Не тому що розумніші, а тому що бачать куди течуть гроші.'},
+  ],
+  low: [
+    {n:'01', text:'<strong>Першочергово: відкрий окремий рахунок для салону.</strong> Всі надходження тільки туди, всі витрати тільки звідти. Це перший крок до розуміння що насправді відбувається з грошима.'},
+    {n:'02', text:'<strong>Порахуй свою точку беззбитковості.</strong> Формула проста: фіксовані витрати (оренда + зарплати + комуналка) ÷ середній чек = мінімум клієнтів на місяць. Знаєш цю цифру — знаєш на що орієнтуватись.'},
+    {n:'03', text:'<strong>Зупини витрати на рекламу поки не знаєш свою конверсію.</strong> Гроші на залучення клієнтів без розуміння скільки ти з них заробляєш — це просто злив бюджету. Спочатку система, потім трафік.'},
+  ]
+};
+
+let answers = new Array(15).fill(null);
+
+function buildQuestions() {
+  const list = document.getElementById('q_list');
+  list.innerHTML = QUESTIONS.map((q,i) => `
+    <div class="q-item" id="qi_${i}">
+      <div class="q-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="q-text">${q}</div>
+      <div class="q-toggle">
+        <button class="q-btn yes" onclick="answer(${i},true)">ТАК</button>
+        <button class="q-btn no" onclick="answer(${i},false)">НІ</button>
+      </div>
+    </div>`).join('');
+}
+
+function answer(idx, val) {
+  answers[idx] = val;
+  const item = document.getElementById('qi_'+idx);
+  item.querySelectorAll('.q-btn').forEach(b=>b.classList.remove('active'));
+  item.querySelector(val?'.yes':'.no').classList.add('active');
+  updateProgress();
+}
+
+function updateProgress() {
+  const done = answers.filter(a=>a!==null).length;
+  document.getElementById('prog_label').textContent = done+' / 15';
+  document.getElementById('prog_fill').style.width = (done/15*100)+'%';
+  document.getElementById('btn2').disabled = done < 15;
+}
+
+function goStep(n) {
+  if(n===2 && !validateStep1()) return;
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validateStep1() {
+  if(!document.getElementById('role').value || !document.getElementById('revenue').value){
+    alert('Будь ласка, заповни всі поля'); return false;
+  }
+  return true;
+}
+
+async function submitAndShow() {
+  const name = document.getElementById('f_name').value.trim();
+  const phone = document.getElementById('f_phone').value.trim();
+  if(!name || !phone){ alert('Будь ласка, вкажи ім\'я та телефон'); return; }
+
+  const score = answers.filter(a=>a===true).length;
+  const rev = document.getElementById('revenue').value;
+  const payload = {
+    name, phone,
+    telegram: document.getElementById('f_tg').value.trim() || '—',
+    role: document.getElementById('role').value,
+    revenue: rev,
+    score: score+'/15',
+    answers: answers.map((a,i)=>`${i+1}:${a?'Так':'Ні'}`).join(', '),
+    source: 'Фінансовий чек-лист'
+  };
+  try {
+    await fetch(WEBHOOK,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  } catch(e){}
+  showResult(score, rev);
+  goStep(4);
+}
+
+// ── IS HIGH REVENUE ────────────────────────────────
+function isHighRevenue(rev) {
+  return ['300_500','500_1000','1m_plus'].includes(rev);
+}
+
+function revenueLabel(rev){
+  const map = {u50:'до 50 000 грн','50_150':'50–150 тис грн','150_300':'150–300 тис грн','300_500':'300–500 тис грн','500_1000':'500 тис – 1 млн грн','1m_plus':'від 1 млн грн'};
+  return map[rev]||'';
+}
+
+// ── SHOW RESULT ────────────────────────────────────
+function showResult(score, rev) {
+  const noItems = answers.map((a,i)=>({q:QUESTIONS[i],ok:a})).filter(x=>!x.ok);
+  const highRev = isHighRevenue(rev);
+  const pct = Math.round(score/15*100);
+
+  let level, emoji, color, desc, recSet, levelCode;
+
+  if(score >= 13) {
+    levelCode='high'; emoji='🔥'; color='green';
+    level='У тебе вже хороший фінансовий контроль. Є що масштабувати — і ми це зробимо';
+    desc='Ти в числі тих власниць хто вже побудував систему і розуміє свої цифри. Наступний рівень — масштабування без хаосу. Де взяти нових клієнтів не збільшуючи витрати, як делегувати фінансовий контроль і яка система дозволяє відкрити другу локацію без ризику.';
+    recSet = RECS.high;
+  } else if(score >= 6) {
+    levelCode='mid'; emoji='⚠️'; color='orange';
+    level='Є база, але критичні дірки в прибутку залишаються';
+    desc='Ти вже зробила важливі кроки і маєш базу. Але є 2–3 ключових блоки де фінанси "течуть" — і саме вони з\'їдають прибуток якого ти не бачиш. Нижче — конкретні рекомендації що зробити першим, щоб результат змінився вже наступного місяця.';
+    recSet = RECS.mid;
+  } else {
+    levelCode='low'; emoji='🚨'; color='red';
+    level='Ти працюєш «на авось». Прибуток — випадковість. Без системи бізнес не зросте стабільно';
+    desc='Це не критика — це точка старту. Саме з таких ситуацій починали більшість власниць які потім виросли в 2–3 рази разом з Вікторією. Тут є з чим працювати — і є конкретні кроки які дають результат вже в перший місяць.';
+    recSet = RECS.low;
+  }
+
+  const noHtml = noItems.length ? `
+    <div class="no-block">
+      <div class="no-title">Пункти де є зони росту (відповідь "Ні"):</div>
+      ${noItems.slice(0,5).map(x=>`<div class="no-item">✗ ${x.q}</div>`).join('')}
+      ${noItems.length>5?`<div style="font-size:11px;color:var(--muted);margin-top:8px;padding-left:2px;">і ще ${noItems.length-5} пунктів...</div>`:''}
+    </div>` : '';
+
+  const recsHtml = `
+    <div class="rec-block">
+      <div class="rec-title">3 дії які покращать результат вже зараз:</div>
+      ${recSet.map(r=>`
+        <div class="rec-item">
+          <div class="rec-num">${r.n}</div>
+          <div class="rec-text">${r.text}</div>
+        </div>`).join('')}
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(212,168,32,.1);">
+        <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+          Це лише 3 з десятків конкретних інструментів які ми розбираємо в деталях.<br>
+          <strong style="color:var(--gold2);">Більше дій, шаблони і покрокові інструкції — нижче.</strong>
+        </div>
+      </div>
+    </div>`;
+
+  // CTA blocks — split by revenue
+  let ctaHtml;
+  if(highRev) {
+    // HIGH REVENUE — AUDIT
+    ctaHtml = `
+      <div class="cta-audit">
+        <div style="text-align:center;font-size:32px;margin-bottom:12px;">🎯</div>
+        <h4>Безкоштовний фінансовий аудит · 60 хвилин</h4>
+        <p>Твій оборот <strong style="color:var(--gold1)">${revenueLabel(rev)}</strong> — це вже серйозний бізнес. На такому рівні навіть невеликі дірки у фінансовій системі коштують десятки тисяч гривень щомісяця.<br><br>
+        На персональному аудиті з командою Вікторії ти за 60 хвилин отримаєш:<br>
+        ✓ Повний розбір фінансової моделі твого салону<br>
+        ✓ Точні зони де ти зараз втрачаєш найбільше<br>
+        ✓ Конкретний план змін з цифрами і пріоритетами</p>
+        <a href="https://forms.gle/WuuTBD6SoTRaoZas6" target="_blank" style="display:block;">
+          <button class="btn" style="margin-bottom:10px;">ЗАПИСАТИСЬ НА АУДИТ БЕЗКОШТОВНО →</button>
+        </a>
+        <div style="text-align:center;font-size:10px;color:var(--muted);">Безкоштовно · Особисто · 60 хвилин · Обмежена кількість місць</div>
+      </div>`;
+  } else {
+    // LOW/MID REVENUE — warm lead → manifest
+    ctaHtml = `
+      <div class="cta-warm">
+        <div style="text-align:center;font-size:32px;margin-bottom:12px;">📋</div>
+        <h4>Хочеш отримати повний план змін для свого салону?</h4>
+        <p>На основі твоїх відповідей ми можемо підготувати для тебе персональний розбір — де зараз найбільші втрати і з яких конкретних кроків починати.<br><br>
+        Заповни коротку анкету (2 хвилини) — і ми зв'яжемось з тобою особисто щоб розібрати твою ситуацію.</p>
+        <a href="https://forms.gle/WuuTBD6SoTRaoZas6" target="_blank" style="display:block;">
+          <button class="btn" style="margin-bottom:10px;">ЗАПОВНИТИ АНКЕТУ →</button>
+        </a>
+        <div style="text-align:center;font-size:10px;color:var(--muted);">Безкоштовно · Відповімо протягом 24 годин</div>
+      </div>`;
+  }
+
+  document.getElementById('result_block').innerHTML = `
+    <div class="result-top">
+      <div class="result-emoji">${emoji}</div>
+      <div class="result-level" style="color:var(--${color})">${level}</div>
+      <div style="display:flex;justify-content:center;margin:16px 0;">
+        <div class="score-circle" style="border-color:var(--${color})">
+          <div class="score-num" style="color:var(--${color})">${score}</div>
+          <div class="score-of">з 15</div>
+        </div>
+      </div>
+      <div class="result-desc">${desc}</div>
+    </div>
+
+    <div class="result-bars">
+      <div class="rb-title">Порівняння результатів</div>
+      <div class="rbar">
+        <div class="rbar-label"><span>Твій результат</span><span style="color:var(--${color})">${score}/15 · ${pct}%</span></div>
+        <div class="rbar-track"><div class="rbar-fill ${color[0]}" style="width:${pct}%"></div></div>
+      </div>
+      <div class="rbar">
+        <div class="rbar-label"><span>Середній по ринку</span><span style="color:var(--orange)">7/15 · 47%</span></div>
+        <div class="rbar-track"><div class="rbar-fill o" style="width:47%"></div></div>
+      </div>
+      <div class="rbar">
+        <div class="rbar-label"><span>Учасниці після Beauty Маніфест</span><span style="color:var(--green)">13+/15 · 87%</span></div>
+        <div class="rbar-track"><div class="rbar-fill g" style="width:87%"></div></div>
+      </div>
+    </div>
+
+    ${noHtml}
+    ${recsHtml}
+    ${ctaHtml}
+
+    <div style="text-align:center;margin-top:16px;">
+      <button class="btn-out" onclick="restart()">↺ Пройти ще раз</button>
+    </div>
+  `;
+}
+
+function restart() {
+  answers = new Array(15).fill(null);
+  buildQuestions();
+  ['f_name','f_phone','f_tg'].forEach(id=>document.getElementById(id).value='');
+  ['role','revenue'].forEach(id=>document.getElementById(id).value='');
+  goStep(1);
+}
+
+document.addEventListener('DOMContentLoaded', buildQuestions);
+</script>
+</body>
+</html>
